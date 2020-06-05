@@ -122,17 +122,17 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
 | | *Enter your response here...*  |
 |Question | What is **npm**?  |
-| | *Enter your response here...*  |
+| | ***npm**  is a package manager for Node.js. It manager the project structure and dependency. It equivente to **Maven***|
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
-| | *Enter your response here...*  |
+| | *This command installs a package and all the packages that it depandes on, we can specify a source or it read the dependancy in the `pacjage,json` file. The option `--save` add the module in the `dependencies` section in the app `package.json`, it option is no needed after npm 5.0.0, the modules are added by default as denpendency.*  |
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
-| | *Enter your response here...*  |
+| | *The site is a library of modules, we can explore and find a module corresponding our need. We can copy and paste the given command to intall the module.*  ![](images/chance.png)|
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
-| | *Enter your response here...*  |
+| | *We can use the module [uudi](https://www.npmjs.com/package/uuid). This module offers 4 different versions and recommend to use the version 4(random). `uuidv4()` generate a random uuid* |
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
-| | *Enter your response here...*  |
+| | *`setInverval(function, intervalInMs)`*  |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
-| | *Enter your response here...*  |
+| | *We can user the standard Node.js module `dgram` to send datagrame. We create a datagram socket with `dgram.createSocket('udp4')`. We create a payload and we send the datagram using the funciton `socket.send(msg[, offset, length][, port][, address][, callback])`*  |
 |Question | In Node.js, how can we **access the command line arguments**? |
 | | *Enter your response here...*  |
 
