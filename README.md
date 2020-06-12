@@ -104,13 +104,13 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | --- | --- |
 |Question | How can we represent the system in an **architecture diagram**, which gives information both about the Docker containers, the communication protocols and the commands? |
-| | ![](https://github.com/StephaneB1/Teaching-HEIGVD-RES-2020-Labo-Orchestra/blob/master/images/architectureDiagram.png) |
+| | ![](images/architectureDiagram.png) |
 |Question | Who is going to **send UDP datagrams** and **when**? |
-| | *Enter your response here...* |
+| | *The **Musician** (every seconds) and the **Auditor** (once a connection has been accepted)* |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
-| | *Enter your response here...* |
+| | *The **Auditor** and the client. When a datagram is received the data should be parsed so that it can be read and used by both.* |
 |Question | What **payload** should we put in the UDP datagrams? |
-| | *Enter your response here...* |
+| | ***Musician**'s payload : id and sound of the sender. **Auditor**'s payload : list of all active **Musicians** and their corresponding data (id, sound, time when they started being active).* |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
 | | *Enter your response here...* |
 
@@ -120,7 +120,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
-| | *Enter your response here...*  |
+| | With JavaScript, if we have a parsable Object `obj` we can use the function `obj.stringify()` to turn it into a JSON string. |
 |Question | What is **npm**?  |
 | | ***npm**  is a package manager for Node.js. It manager the project structure and dependency. It equivente to **Maven***|
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
@@ -134,7 +134,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | In Node.js, how can we **emit UDP datagrams**? |
 | | *We can user the standard Node.js module `dgram` to send datagrame. We create a datagram socket with `dgram.createSocket('udp4')`. We create a payload and we send the datagram using the funciton `socket.send(msg[, offset, length][, port][, address][, callback])`*  |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | *Enter your response here...*  |
+||  *Using `process.argv`, this method print the arguments passed, the first two elements are `node` and the script path*  |
 
 
 ## Task 3: package the "musician" app in a Docker image
@@ -160,13 +160,13 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | ---  |
 |Question | With Node.js, how can we listen for UDP datagrams in a multicast group? |
-| | *Enter your response here...*  |
+| | *We can use the function `addMembership(multicastAddress)` to bind a socket to a multicast group.* |
 |Question | How can we use the `Map` built-in object introduced in ECMAScript 6 to implement a **dictionary**?  |
-| | *Enter your response here...* |
+| | *We can use a map in order to assign for each sound an id of a **Musician**. For example, the sound "boum-boum" will be converted  to the instrument "drum" linked to the id of a **Musician**.* |
 |Question | How can we use the `Moment.js` npm module to help us with **date manipulations** and formatting?  |
-| | *Enter your response here...* |
+| | *We can use it to get the time when a **Musician** was first active and to know when to declare it unactive (by comparing the last activity time with now). We can use the `format()` function * |
 |Question | When and how do we **get rid of inactive players**?  |
-| | *Enter your response here...* |
+| | *We get rid of inactive players once they haven't played anything (send any UDP datagrams) for the past 5 seconds. We remove them by removing their ID from the map of * |
 |Question | How do I implement a **simple TCP server** in Node.js?  |
 | | *Enter your response here...* |
 
