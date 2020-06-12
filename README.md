@@ -108,9 +108,9 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | Who is going to **send UDP datagrams** and **when**? |
 | | The **Musician** (every seconds) and the **Auditor** (once a connection has been accepted) |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
-| | *Enter your response here...* |
+| | The **Auditor** and the client. When a datagram is received the data should be parsed so that it can be read and used by both. |
 |Question | What **payload** should we put in the UDP datagrams? |
-| | *Enter your response here...* |
+| | **Musician**'s payload : id and sound of the sender. **Auditor**'s payload : list of all active **Musicians** and their corresponding data (id, sound, time when they started being active). |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
 | | *Enter your response here...* |
 
