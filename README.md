@@ -162,11 +162,11 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | With Node.js, how can we listen for UDP datagrams in a multicast group? |
 | | *We can use the function `addMembership(multicastAddress)` to bind a socket to a multicast group.* |
 |Question | How can we use the `Map` built-in object introduced in ECMAScript 6 to implement a **dictionary**?  |
-| | *We can use a map in order to assign for each sound an instrument. For example, the sound "boum-boum" will be mapped with the instrument "drum".* |
+| | *We can use a map in order to assign for each sound an id of a **Musician**. For example, the sound "boum-boum" will be converted  to the instrument "drum" linked to the id of a **Musician**.* |
 |Question | How can we use the `Moment.js` npm module to help us with **date manipulations** and formatting?  |
-| | *Enter your response here...* |
+| | *We can use it to get the time when a **Musician** was first active and to know when to declare it unactive (by comparing the last activity time with now). We can use the `format()` function * |
 |Question | When and how do we **get rid of inactive players**?  |
-| | *Enter your response here...* |
+| | *We get rid of inactive players once they haven't played anything (send any UDP datagrams) for the past 5 seconds. We remove them by removing their ID from the map of * |
 |Question | How do I implement a **simple TCP server** in Node.js?  |
 | | *Enter your response here...* |
 
