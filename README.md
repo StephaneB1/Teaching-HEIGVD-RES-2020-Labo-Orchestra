@@ -120,7 +120,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
-| | *Enter your response here...*  |
+| | With JavaScript, if we have a parsable Object `obj` we can use the function `obj.stringify()` to turn it into a JSON string. |
 |Question | What is **npm**?  |
 | | ***npm**  is a package manager for Node.js. It manager the project structure and dependency. It equivente to **Maven***|
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
