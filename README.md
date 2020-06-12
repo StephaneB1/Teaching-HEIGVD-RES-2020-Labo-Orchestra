@@ -160,7 +160,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | ---  |
 |Question | With Node.js, how can we listen for UDP datagrams in a multicast group? |
-| | *Enter your response here...*  |
+| | We can use the function `addMembership(multicastAddress)` to bind a socket to a multicast group. |
 |Question | How can we use the `Map` built-in object introduced in ECMAScript 6 to implement a **dictionary**?  |
 | | *Enter your response here...* |
 |Question | How can we use the `Moment.js` npm module to help us with **date manipulations** and formatting?  |
