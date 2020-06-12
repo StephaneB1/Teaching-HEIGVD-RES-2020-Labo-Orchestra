@@ -104,7 +104,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | --- | --- |
 |Question | How can we represent the system in an **architecture diagram**, which gives information both about the Docker containers, the communication protocols and the commands? |
-| | ![](https://github.com/StephaneB1/Teaching-HEIGVD-RES-2020-Labo-Orchestra/blob/master/images/architectureDiagram.png) |
+| | ![](images/architectureDiagram.png) |
 |Question | Who is going to **send UDP datagrams** and **when**? |
 | | *The **Musician** (every seconds) and the **Auditor** (once a connection has been accepted)* |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
@@ -134,7 +134,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | In Node.js, how can we **emit UDP datagrams**? |
 | | *We can user the standard Node.js module `dgram` to send datagrame. We create a datagram socket with `dgram.createSocket('udp4')`. We create a payload and we send the datagram using the funciton `socket.send(msg[, offset, length][, port][, address][, callback])`*  |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | *Enter your response here...*  |
+| | *Using `process.argv`, this method print the arguments passed, the first two elements are `node` and the script path*  |
 
 
 ## Task 3: package the "musician" app in a Docker image
