@@ -134,7 +134,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | In Node.js, how can we **emit UDP datagrams**? |
 | | *We can user the standard Node.js module `dgram` to send datagrame. We create a datagram socket with `dgram.createSocket('udp4')`. We create a payload and we send the datagram using the funciton `socket.send(msg[, offset, length][, port][, address][, callback])`*  |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | *Using `process.argv`, this method print the arguments passed, the first two elementsEnter your response here.. are `node` and the script path*  |
+||  *Using `process.argv`, this method print the arguments passed, the first two elements are `node` and the script path*  |
 
 
 ## Task 3: package the "musician" app in a Docker image
