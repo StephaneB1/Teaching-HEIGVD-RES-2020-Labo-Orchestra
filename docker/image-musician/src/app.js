@@ -20,10 +20,12 @@ function Musician(instrumentRequest){
 
     Musician.prototype.update = function(){
         
+        var time = new Date()
         var data = {
             uuid : this.uuid,
             instrument : instrumentRequest,
-            sound : instrumentMap[instrumentRequest]
+            sound : instrumentMap[instrumentRequest],
+            activeSince : time.toJSON()
         }
         payload = JSON.stringify(data);
 
