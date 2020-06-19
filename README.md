@@ -142,17 +142,17 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | How do we **define and build our own Docker image**?|
-| | *Enter your response here...*  |
+| | *We need to create a `Dockerfile`, in this file we indicate that we use a nodejs image and we want to copy `src` folder in the container's `/opt/app/` *  |
 |Question | How can we use the `ENTRYPOINT` statement in our Dockerfile?  |
-| | *Enter your response here...*  |
+| | *`ENTRYPOINT` configure our container to run as a executable, it allow to pass arguments when we run it. In our case, we indicate which instrument the musician plays*  |
 |Question | After building our Docker image, how do we use it to **run containers**?  |
-| | *Enter your response here...*  |
+| | *`docker run -d res/musician INSTRUMENT`, `INSTRUMENT` is the name of instruments provided by our application*  |
 |Question | How do we get the list of all **running containers**?  |
-| | *Enter your response here...*  |
+| | *`docker ps`*  |
 |Question | How do we **stop/kill** one running container?  |
-| | *Enter your response here...*  |
+| | *We can use `docker stop CONTAINER` to stop one or `docker kill CONTAINER` to kill*  |
 |Question | How can we check that our running containers are effectively sending UDP datagrams?  |
-| | *Enter your response here...*  |
+| | *`tcpdump -A -i docker0 dst 239.255.22.5`, we capture all packet from our musician multicast address with `tcpdump`, the argument `-A` ask `tcpdump` to print the packet in ASCII format* |
 
 
 ## Task 4: implement an "auditor" Node.js application
