@@ -104,13 +104,13 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | --- | --- |
 |Question | How can we represent the system in an **architecture diagram**, which gives information both about the Docker containers, the communication protocols and the commands? |
-| | *Insert your diagram here...* |
+| | ![](images/architectureDiagram.png) |
 |Question | Who is going to **send UDP datagrams** and **when**? |
-| | *Enter your response here...* |
+| | *The **Musician** (every seconds) and the **Auditor** (once a connection has been accepted)* |
 |Question | Who is going to **listen for UDP datagrams** and what should happen when a datagram is received? |
-| | *Enter your response here...* |
+| | *The **Auditor** and the client. When a datagram is received the data should be parsed so that it can be read and used by both.* |
 |Question | What **payload** should we put in the UDP datagrams? |
-| | *Enter your response here...* |
+| | ***Musician**'s payload : id and sound of the sender. **Auditor**'s payload : list of all active **Musicians** and their corresponding data (id, sound, time when they started being active).* |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
 | | *Enter your response here...* |
 
@@ -120,21 +120,21 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | In a JavaScript program, if we have an object, how can we **serialize it in JSON**? |
-| | *Enter your response here...*  |
+| | With JavaScript, if we have a parsable Object `obj` we can use the function `obj.stringify()` to turn it into a JSON string. |
 |Question | What is **npm**?  |
-| | *Enter your response here...*  |
+| | ***npm**  is a package manager for Node.js. It manager the project structure and dependency. It equivente to **Maven***|
 |Question | What is the `npm install` command and what is the purpose of the `--save` flag?  |
-| | *Enter your response here...*  |
+| | *This command installs a package and all the packages that it depandes on, we can specify a source or it read the dependancy in the `pacjage,json` file. The option `--save` add the module in the `dependencies` section in the app `package.json`, it option is no needed after npm 5.0.0, the modules are added by default as denpendency.*  |
 |Question | How can we use the `https://www.npmjs.com/` web site?  |
-| | *Enter your response here...*  |
+| | *The site is a library of modules, we can explore and find a module corresponding our need. We can copy and paste the given command to intall the module.*  ![](images/chance.png)|
 |Question | In JavaScript, how can we **generate a UUID** compliant with RFC4122? |
-| | *Enter your response here...*  |
+| | *We can use the module [uudi](https://www.npmjs.com/package/uuid). This module offers 4 different versions and recommend to use the version 4(random). `uuidv4()` generate a random uuid* |
 |Question | In Node.js, how can we execute a function on a **periodic** basis? |
-| | *Enter your response here...*  |
+| | *`setInverval(function, intervalInMs)`*  |
 |Question | In Node.js, how can we **emit UDP datagrams**? |
-| | *Enter your response here...*  |
+| | *We can user the standard Node.js module `dgram` to send datagrame. We create a datagram socket with `dgram.createSocket('udp4')`. We create a payload and we send the datagram using the funciton `socket.send(msg[, offset, length][, port][, address][, callback])`*  |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | *Enter your response here...*  |
+| | *Using `process.argv`, this method print the arguments passed, the first two elements are `node` and the script path*  |
 
 
 ## Task 3: package the "musician" app in a Docker image
@@ -142,17 +142,17 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | How do we **define and build our own Docker image**?|
-| | *Enter your response here...*  |
+| | *We need to create a `Dockerfile`, in this file we indicate that we use a nodejs image and we want to copy `src` folder in the container's `/opt/app/` *  |
 |Question | How can we use the `ENTRYPOINT` statement in our Dockerfile?  |
-| | *Enter your response here...*  |
+| | *`ENTRYPOINT` configure our container to run as a executable, it allow to pass arguments when we run it. In our case, we indicate which instrument the musician plays*  |
 |Question | After building our Docker image, how do we use it to **run containers**?  |
-| | *Enter your response here...*  |
+| | *`docker run -d res/musician INSTRUMENT`, `INSTRUMENT` is the name of instruments provided by our application*  |
 |Question | How do we get the list of all **running containers**?  |
-| | *Enter your response here...*  |
+| | *`docker ps`*  |
 |Question | How do we **stop/kill** one running container?  |
-| | *Enter your response here...*  |
+| | *We can use `docker stop CONTAINER` to stop one or `docker kill CONTAINER` to kill*  |
 |Question | How can we check that our running containers are effectively sending UDP datagrams?  |
-| | *Enter your response here...*  |
+| | *`tcpdump -A -i docker0 dst 239.255.22.5`, we capture all packet from our musician multicast address with `tcpdump`, the argument `-A` ask `tcpdump` to print the packet in ASCII format* |
 
 
 ## Task 4: implement an "auditor" Node.js application
