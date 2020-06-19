@@ -1,0 +1,23 @@
+{
+  "name": "musician",
+  "version": "1.0.0",
+  "description": "## Admin",
+  "main": "app.js",
+  "dependencies": {
+    "uuid": "^8.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StephaneB1/Teaching-HEIGVD-RES-2020-Labo-Orchestra.git"
+  },
+  "author": "Chau Ying Kot, Stephane Bottin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StephaneB1/Teaching-HEIGVD-RES-2020-Labo-Orchestra/issues"
+  },
+  "homepage": "https://github.com/StephaneB1/Teaching-HEIGVD-RES-2020-Labo-Orchestra#readme"
+}
