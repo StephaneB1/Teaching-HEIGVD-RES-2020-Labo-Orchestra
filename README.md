@@ -168,7 +168,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | When and how do we **get rid of inactive players**?  |
 | | *We get rid of inactive players once they haven't played anything (send any UDP datagrams) for the past 5 seconds. We remove them by removing their ID from the map of * |
 |Question | How do I implement a **simple TCP server** in Node.js?  |
-| | *Enter your response here...* |
+| | *A simple TCP server can be made with the `net` library by creating a server (`net.createServer()`) and then binding the methods we want to the different actions of the server (i.e. `server.on('listening', doThis);`). Then we just need to indicate the port we want to listen with ``server.listen(####)`* |
 
 
 ## Task 5: package the "auditor" app in a Docker image
