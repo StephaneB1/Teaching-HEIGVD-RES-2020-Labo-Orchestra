@@ -7,7 +7,7 @@ moment.defaultFormat = 'YYYY-MM-DDTHH:mm:ss.SSS';
 
 // Protocol values
 var protocol = {
-	PORT: 			   "2205",
+	PORT: 			   2205,
 	MULTICAST_ADDRESS: "239.255.22.5"
 };
 
@@ -26,20 +26,29 @@ instruments.set("boum-boum", "drum");
 const s = dgram.createSocket('udp4');
 
 s.bind(protocol.PORT, function() {
-	console.log("Joining multicast group");
 	s.addMembership(protocol.MULTICAST_ADDRESS);
 });
 
 // New datagram detected
 s.on('message', function(msg, source) {
 
+	var data = JSON.parse(msg);
+	var newMusician = new Musician(data.id, data.instrument, data.activeSince);
+	var isPresent = false;
+
 	for(var musician in musicians) {
-		if()
+		// Replace the data of an already present musician
+		if(musician.id == newMusician.id) {
+			musician = newMusician;
+			isPresent = true;
+			break;
+		}
 	}
 
-	console.log("Data has arrived: " + msg + ". Source IP: " + source.address + ". Source port: " + source.port);
-
-
+	// Add the musician to the list if new
+	if(isPresent == false) {
+		musicians.push(newMusician);
+	}
 });
 
 // Musician class
