@@ -36,9 +36,16 @@ s.on('connect', function(msg, source) {
 		payload += "{" + musician.getJson() + "},";
 	}
 	payload += "]"
-	
-	// Transform the date into JSON format
-	payload = JSON.stringify(data);
+
+	// Put the payload in a buffer
+	message = new Buffer(JSON.stringify(payload));
+
+	// Send the message to multicast addr
+	s.send(message, 0, message.length, 
+		protocol.PORT, protocol.MULTICAST_ADDRESS, 
+		function(err, bytes){
+			console.log("Sending payload : "  + payload + " via port " + s.address().port);
+		});
 });
 
 // New datagram detected
