@@ -29,6 +29,18 @@ s.bind(protocol.PORT, function() {
 	s.addMembership(protocol.MULTICAST_ADDRESS);
 });
 
+// New connection detected
+s.on('connect', function(msg, source) {
+	var payload = "[";
+	for(var musician in musicians) {
+		payload += "{" + musician.getJson() + "},";
+	}
+	payload += "]"
+	
+	// Transform the date into JSON format
+	payload = JSON.stringify(data);
+});
+
 // New datagram detected
 s.on('message', function(msg, source) {
 
@@ -60,6 +72,12 @@ class Musician {
 	}
 
 	getJson() {
-		return "uuid : \"" + id + "\",\ninstrument : \"" + instrument + "\",\nactiveSince : \"" + activeSince + "\""; 
+		var data = {
+			uuid : this.id,
+			instrument : this.instrument,
+			activeSince : this.activeSince
+		}
+
+		return JSON.stringify(data);
 	}
 }

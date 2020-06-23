@@ -13,4 +13,4 @@ RUN npm install
 RUN npm install moment 
 
 # Excute auditor.js
-CMD ["node", "/opt/app/auditor.js"]
+CMD ["node", "/opt/app/app.js"]
