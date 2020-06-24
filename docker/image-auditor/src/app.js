@@ -6,22 +6,8 @@ const dgram = require('dgram');
 var moment = require('moment'); 
 moment.defaultFormat = 'YYYY-MM-DDTHH:mm:ss.SSS';
 
-// Protocol values
-/*var protocol = {
-	PORT: 			   2205,
-	MULTICAST_ADDRESS: "239.255.22.5"
-};*/
-
 // Active musicians
 var musicians = [];
-
-// Map of instruments
-var instruments = new Map();
-instruments.set("ti-ta-ti", "piano");
-instruments.set("pouet", "trumpet");
-instruments.set("trulu", "flute");
-instruments.set("gzi-gzi", "violon");
-instruments.set("boum-boum", "drum");
 
 // socket to listen for datagrams published in the multicast group of Musicians
 var s = dgram.createSocket('udp4');
@@ -49,6 +35,11 @@ s.on('connect', function(msg, source) {
 		});
 });
 
+// Server address information
+s.on('listening', () => {
+	const address = s.address();
+	console.log(`server listening ${address.address}:${address.port}`);
+});  
 
 
 // New datagram detected
@@ -74,7 +65,7 @@ s.on('message', function(msg, source) {
 	if(isPresent == false) {
 		musicians.push(newMusician);
 	}
-  });
+});
 
 // Removing unwanted musicians every half-seconds 
 var intervalID = setInterval(myCallback, 500);
@@ -91,6 +82,12 @@ function myCallback() {
 		}
 	}
 }
+
+// Error handling
+s.on('error', (err) => {
+	console.log(`server error:\n${err.stack}`);
+	server.close();
+});
 
 // Musician class
 class Musician {
