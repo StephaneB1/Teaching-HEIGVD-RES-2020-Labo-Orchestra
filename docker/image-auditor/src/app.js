@@ -28,7 +28,8 @@ var server = net.createServer(function(socket) {
 	socket.write(message + '\r\n');
 	socket.pipe(socket);
 });
-server.listen(protocol.PROTOCOL_PORT, protocol.PROTOCOL_MULTICAST_ADDRESS);
+
+server.listen(protocol.PROTOCOL_PORT);
 
 
 s.bind(protocol.PROTOCOL_PORT, function() {
