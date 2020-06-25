@@ -112,7 +112,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | What **payload** should we put in the UDP datagrams? |
 | | ***Musician**'s payload : id and sound of the sender. **Auditor**'s payload : list of all active **Musicians** and their corresponding data (id, sound, time when they started being active).* |
 |Question | What **data structures** do we need in the UDP sender and receiver? When will we update these data structures? When will we query these data structures? |
-| | *Enter your response here...* |
+| | *For the UDP sender, we just need a map to keep track of what sounds an instrument make. The UDP receiver will have a list of Musicians. The list of Musicians is updated everytime a new datagram is detected. It is once that a client is connected to the Auditor container that the list of Musicians will be "queried". For the instruments, they are queried once their instrument is set to know which sound to emit.* |
 
 
 ## Task 2: implement a "musician" Node.js application
