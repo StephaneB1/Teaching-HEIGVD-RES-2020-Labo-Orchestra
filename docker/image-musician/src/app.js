@@ -3,7 +3,7 @@ const dgram = require('dgram');
 const { v4: uuidv4 } = require('uuid');
 
 
-const s = dgram.createSocket('udp4');
+var s = dgram.createSocket('udp4');
 
 const instrumentMap = {
     'piano' : 'ti-ta-ti',
