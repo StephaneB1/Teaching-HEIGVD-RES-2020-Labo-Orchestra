@@ -4,6 +4,7 @@
   "description": "## Admin",
   "main": "app.js",
   "dependencies": {
+    "moment": "^2.27.0",
     "uuid": "^8.1.0"
   },
   "devDependencies": {},

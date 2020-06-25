@@ -13,28 +13,30 @@ var musicians = [];
 const s = dgram.createSocket('udp4');
 
 s.bind(protocol.PROTOCOL_PORT, function() {
+	console.log('Bind');
 	s.addMembership(protocol.PROTOCOL_MULTICAST_ADDRESS);
 });
 
 // New connection detected
-/*s.on('connect', function(msg, source) {
-	console.log("New connection detected");
-	var payload = "[";
-	for(var musician in musicians) {
-		payload += "{" + musician.getJson() + "},";
-	}
-	payload += "]"
+// s.on('connect', function(msg, source) {
+// 	console.log('Conncet');
 
-	// Put the payload in a buffer
-	message = new Buffer(JSON.stringify(payload));
+// 	var payload = "[";
+// 	for(var musician in musicians) {
+// 		payload += "{" + musician.getJson() + "},";
+// 	}
+// 	payload += "]"
 
-	// Send the message to multicast addr
-	s.send(message, 0, message.length, 
-		protocol.PROTOCOL_PORT, protocol.PROTOCOL_MULTICAST_ADDRESS, 
-		function(err, bytes){
-			console.log("Sending payload : "  + payload + " via port " + s.address().port);
-		});
-});*/
+// 	// Put the payload in a buffer
+// 	message = new Buffer(JSON.stringify(payload));
+
+// 	// Send the message to multicast addr
+// 	s.send(message, 0, message.length, 
+// 		protocol.PORT, protocol.PROTOCOL_MULTICAST_ADDRESS, 
+// 		function(err, bytes){
+// 			console.log("Sending payload : "  + payload + " via port " + s.address().port);
+// 		});
+// });
 
 // Server address information
 /*s.on('listening', () => {
@@ -47,20 +49,21 @@ s.bind(protocol.PROTOCOL_PORT, function() {
 s.on('message', function(msg, source) {
 
 	var data = JSON.parse(msg);
-  
+
 	var newMusician = new Musician(data.uuid, data.instrument, data.activeSince);
 	var isPresent = false;
-	console.log("Message received from " + newMusician.id);
+	console.log('New Musician:  id: ' + newMusician.id + ' instrument: ' + newMusician.instrument + 'Active since: ' + newMusician.activeSince);
 
 	for(var i = 0 ; i < musicians.length; i++) {
-	  musician = musicians[i];
-  
-	  // Update activity time
-	  if(musician.id == newMusician.id) {
-		musician.activeSince = newMusician.activeSince;
-		isPresent = true;
-		break;
-	  }
+		musician = musicians[i];
+		console.log('id: ' + musician.id + ' instrument: ' + musician.instrument + 'Active since: ' + musician.activeSince);
+
+		// Replace the data of an already present musician	
+		if(musician.id == newMusician.id) {
+			musician = newMusician;
+			isPresent = true;
+			break;
+		}
 	}
   
 	// Add the musician to the list if new
@@ -94,6 +97,7 @@ s.on('error', (err) => {
 
 // Musician class
 class Musician {
+
 	constructor(id, instrument, activeSince) {
 	  this.id = id;
 	  this.instrument = instrument;
