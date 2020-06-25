@@ -10,14 +10,15 @@ moment.defaultFormat = 'YYYY-MM-DDTHH:mm:ss.SSS';
 var musicians = [];
 
 // socket to listen for datagrams published in the multicast group of Musicians
-var s = dgram.createSocket('udp4');
+const s = dgram.createSocket('udp4');
 
 s.bind(protocol.PROTOCOL_PORT, function() {
 	s.addMembership(protocol.PROTOCOL_MULTICAST_ADDRESS);
 });
 
 // New connection detected
-s.on('connect', function(msg, source) {
+/*s.on('connect', function(msg, source) {
+	console.log("New connection detected");
 	var payload = "[";
 	for(var musician in musicians) {
 		payload += "{" + musician.getJson() + "},";
@@ -29,17 +30,17 @@ s.on('connect', function(msg, source) {
 
 	// Send the message to multicast addr
 	s.send(message, 0, message.length, 
-		protocol.PORT, protocol.PROTOCOL_MULTICAST_ADDRESS, 
+		protocol.PROTOCOL_PORT, protocol.PROTOCOL_MULTICAST_ADDRESS, 
 		function(err, bytes){
 			console.log("Sending payload : "  + payload + " via port " + s.address().port);
 		});
-});
+});*/
 
 // Server address information
-s.on('listening', () => {
+/*s.on('listening', () => {
 	const address = s.address();
 	console.log(`server listening ${address.address}:${address.port}`);
-});  
+});  */
 
 
 // New datagram detected
@@ -49,13 +50,14 @@ s.on('message', function(msg, source) {
   
 	var newMusician = new Musician(data.uuid, data.instrument, data.activeSince);
 	var isPresent = false;
-  
+	console.log("Message received from " + newMusician.id);
+
 	for(var i = 0 ; i < musicians.length; i++) {
 	  musician = musicians[i];
   
-	  // Replace the data of an already present musician  
+	  // Update activity time
 	  if(musician.id == newMusician.id) {
-		musician = newMusician;
+		musician.activeSince = newMusician.activeSince;
 		isPresent = true;
 		break;
 	  }
@@ -63,6 +65,7 @@ s.on('message', function(msg, source) {
   
 	// Add the musician to the list if new
 	if(isPresent == false) {
+		console.log("New musician detected that plays : " + newMusician.instrument);
 		musicians.push(newMusician);
 	}
 });
