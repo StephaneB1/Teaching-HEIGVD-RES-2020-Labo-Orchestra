@@ -176,7 +176,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | --- |
 |Question | How do we validate that the whole system works, once we have built our Docker image? |
-| | *Enter your response here...* |
+| | *Once our Docker image is built, we can run it and run on the side other musician containers. We can see by connecting ourselves to the auditor container that the musicians are being kept in a list by the auditor. If we kill a musician container, after 5 seconds it will dissapear from the list of the auditor. * |
 
 
 ## Constraints
