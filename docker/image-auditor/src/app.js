@@ -2,6 +2,8 @@
 var protocol = require('./auditor_protocol')
 // Standard NodeJS module to work with UDP
 const dgram = require('dgram');
+// TCP server
+var net = require('net');
 // Date manipulation
 var moment = require('moment'); 
 moment.defaultFormat = 'YYYY-MM-DDTHH:mm:ss.SSS';
@@ -12,9 +14,28 @@ var musicians = [];
 // socket to listen for datagrams published in the multicast group of Musicians
 const s = dgram.createSocket('udp4');
 
+// Server for TCP client
+var server = net.createServer(function(socket) {
+	var payload = "[";
+	for(var musician in musicians) {
+		payload += "{" + musician.getJson() + "},";
+	}
+	payload += "]"
+
+	// Put the payload in a buffer
+	message = new Buffer(JSON.stringify(payload));
+
+	socket.write(message + '\r\n');
+	socket.pipe(socket);
+});
+server.listen(protocol.PROTOCOL_PORT, protocol.PROTOCOL_MULTICAST_ADDRESS);
+
+
 s.bind(protocol.PROTOCOL_PORT, function() {
 	s.addMembership(protocol.PROTOCOL_MULTICAST_ADDRESS);
 });
+
+
 
 // New connection detected
 /*s.on('connect', function(msg, source) {
