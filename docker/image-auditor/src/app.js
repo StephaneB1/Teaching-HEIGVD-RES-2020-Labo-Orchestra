@@ -15,54 +15,33 @@ var musicians = [];
 const s = dgram.createSocket('udp4');
 
 // Server for TCP client
-var server = net.createServer(function(socket) {
+var server = net.createServer();
+
+server.listen(2205);
+
+server.on('connection', function(socket){
 	var payload = "[";
-	for(var musician in musicians) {
-		payload += "{" + musician.getJson() + "},";
+	for(var i = 0 ; i < musicians.length; i++) {
+		musician = musicians[i];
+		if(i !=0){
+			payload += ",";
+		}
+		payload += JSON.stringify(musician.getJson());
 	}
-	payload += "]"
+	payload += "]";
 
 	// Put the payload in a buffer
-	message = new Buffer(JSON.stringify(payload));
+	message = new Buffer(payload);
 
-	socket.write(message + '\r\n');
-	socket.pipe(socket);
-});
+	socket.write(message + '\n');
+	socket.end();
+})
 
-server.listen(protocol.PROTOCOL_PORT);
 
 
 s.bind(protocol.PROTOCOL_PORT, function() {
 	s.addMembership(protocol.PROTOCOL_MULTICAST_ADDRESS);
 });
-
-
-
-// New connection detected
-/*s.on('connect', function(msg, source) {
-	console.log("New connection detected");
-	var payload = "[";
-	for(var musician in musicians) {
-		payload += "{" + musician.getJson() + "},";
-	}
-	payload += "]"
-
-	// Put the payload in a buffer
-	message = new Buffer(JSON.stringify(payload));
-
-	// Send the message to multicast addr
-	s.send(message, 0, message.length, 
-		protocol.PROTOCOL_PORT, protocol.PROTOCOL_MULTICAST_ADDRESS, 
-		function(err, bytes){
-			console.log("Sending payload : "  + payload + " via port " + s.address().port);
-		});
-});*/
-
-// Server address information
-/*s.on('listening', () => {
-	const address = s.address();
-	console.log(`server listening ${address.address}:${address.port}`);
-});  */
 
 
 // New datagram detected
@@ -115,20 +94,23 @@ s.on('error', (err) => {
 });
 
 // Musician class
-class Musician {
-	constructor(id, instrument, activeSince) {
+function Musician(id, instrument, activeSince) {
+	
 	  this.id = id;
 	  this.instrument = instrument;
 	  this.activeSince = activeSince;
-	}
 
-	getJson() {
+	 this.getJson = function() {
 		var data = {
 			uuid : this.id,
 			instrument : this.instrument,
 			activeSince : this.activeSince
 		}
-
+	
+		console.log("getJson "+JSON.stringify(data));
+	
 		return JSON.stringify(data);
 	}
+	
 }
+
