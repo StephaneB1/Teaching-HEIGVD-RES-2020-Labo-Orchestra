@@ -12,7 +12,7 @@ moment.defaultFormat = 'YYYY-MM-DDTHH:mm:ss.SSS';
 var musicians = [];
 
 // socket to listen for datagrams published in the multicast group of Musicians
-const musicianSocket = dgram.createSocket('udp4');
+const s = dgram.createSocket('udp4');
 
 // Server for TCP client
 var server = net.createServer(function(socket) {
@@ -32,16 +32,14 @@ server.listen(protocol.PROTOCOL_PORT, protocol.PROTOCOL_MULTICAST_ADDRESS);
 
 
 s.bind(protocol.PROTOCOL_PORT, function() {
-	console.log('Bind');
 	s.addMembership(protocol.PROTOCOL_MULTICAST_ADDRESS);
 });
 
 
 
 // New connection detected
-auditorSocket.on('connect', function(msg, source) {
-	console.log('Connect');
-
+/*s.on('connect', function(msg, source) {
+	console.log("New connection detected");
 	var payload = "[";
 	for(var musician in musicians) {
 		payload += "{" + musician.getJson() + "},";
@@ -53,38 +51,37 @@ auditorSocket.on('connect', function(msg, source) {
 
 	// Send the message to multicast addr
 	s.send(message, 0, message.length, 
-		protocol.PORT, protocol.PROTOCOL_MULTICAST_ADDRESS, 
+		protocol.PROTOCOL_PORT, protocol.PROTOCOL_MULTICAST_ADDRESS, 
 		function(err, bytes){
 			console.log("Sending payload : "  + payload + " via port " + s.address().port);
 		});
-});
+});*/
 
 // Server address information
-auditorSocket.on('listening', () => {
-	const address = auditorSocket.address();
+/*s.on('listening', () => {
+	const address = s.address();
 	console.log(`server listening ${address.address}:${address.port}`);
-});  
+});  */
 
 
 // New datagram detected
-musicianSocket.on('message', function(msg, source) {
+s.on('message', function(msg, source) {
 
 	var data = JSON.parse(msg);
-
+  
 	var newMusician = new Musician(data.uuid, data.instrument, data.activeSince);
 	var isPresent = false;
-	console.log('New Musician:  id: ' + newMusician.id + ' instrument: ' + newMusician.instrument + 'Active since: ' + newMusician.activeSince);
+	console.log("Message received from " + newMusician.id);
 
 	for(var i = 0 ; i < musicians.length; i++) {
-		musician = musicians[i];
-		console.log('id: ' + musician.id + ' instrument: ' + musician.instrument + 'Active since: ' + musician.activeSince);
-
-		// Replace the data of an already present musician	
-		if(musician.id == newMusician.id) {
-			musician = newMusician;
-			isPresent = true;
-			break;
-		}
+	  musician = musicians[i];
+  
+	  // Update activity time
+	  if(musician.id == newMusician.id) {
+		musician.activeSince = newMusician.activeSince;
+		isPresent = true;
+		break;
+	  }
 	}
   
 	// Add the musician to the list if new
@@ -111,14 +108,13 @@ function myCallback() {
 }
 
 // Error handling
-musicianSocket.on('error', (err) => {
+s.on('error', (err) => {
 	console.log(`server error:\n${err.stack}`);
 	server.close();
 });
 
 // Musician class
 class Musician {
-
 	constructor(id, instrument, activeSince) {
 	  this.id = id;
 	  this.instrument = instrument;
