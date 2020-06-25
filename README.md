@@ -134,7 +134,7 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | In Node.js, how can we **emit UDP datagrams**? |
 | | *We can user the standard Node.js module `dgram` to send datagrame. We create a datagram socket with `dgram.createSocket('udp4')`. We create a payload and we send the datagram using the funciton `socket.send(msg[, offset, length][, port][, address][, callback])`*  |
 |Question | In Node.js, how can we **access the command line arguments**? |
-| | *Using `process.argv`, this method print the arguments passed, the first two elements are `node` and the script path*  |
+||  *Using `process.argv`, this method print the arguments passed, the first two elements are `node` and the script path*  |
 
 
 ## Task 3: package the "musician" app in a Docker image
@@ -160,15 +160,15 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 | #  | Topic |
 | ---  | ---  |
 |Question | With Node.js, how can we listen for UDP datagrams in a multicast group? |
-| | *Enter your response here...*  |
+| | *We can use the function `addMembership(multicastAddress)` to bind a socket to a multicast group.* |
 |Question | How can we use the `Map` built-in object introduced in ECMAScript 6 to implement a **dictionary**?  |
-| | *Enter your response here...* |
+| | *We can use a map in order to assign for each sound an id of a **Musician**. For example, the sound "boum-boum" will be converted  to the instrument "drum" linked to the id of a **Musician**.* |
 |Question | How can we use the `Moment.js` npm module to help us with **date manipulations** and formatting?  |
-| | *Enter your response here...* |
+| | *We can use it to get the time when a **Musician** was first active and to know when to declare it unactive (by comparing the last activity time with now). We can use the `format()` function* |
 |Question | When and how do we **get rid of inactive players**?  |
-| | *Enter your response here...* |
+| | *We get rid of inactive players once they haven't played anything (send any UDP datagrams) for the past 5 seconds. We remove them by removing them from the list of active musicians.* |
 |Question | How do I implement a **simple TCP server** in Node.js?  |
-| | *Enter your response here...* |
+| | *A simple TCP server can be made with the `net` library by creating a server (`net.createServer()`) and then binding the methods we want to the different actions of the server (i.e. `server.on('listening', doThis);`). Then we just need to indicate the port we want to listen with `server.listen(####)`* |
 
 
 ## Task 5: package the "auditor" app in a Docker image

@@ -12,5 +12,5 @@ COPY src/ /opt/app
 RUN npm install
 RUN npm install moment  
 
-# Excute auditor.js
+# Excute auditor app.js
 CMD ["node", "/opt/app/app.js"]
