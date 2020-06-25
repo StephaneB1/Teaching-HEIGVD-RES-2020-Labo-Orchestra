@@ -164,11 +164,11 @@ When you connect to the TCP interface of the **Auditor**, you should receive an 
 |Question | How can we use the `Map` built-in object introduced in ECMAScript 6 to implement a **dictionary**?  |
 | | *We can use a map in order to assign for each sound an id of a **Musician**. For example, the sound "boum-boum" will be converted  to the instrument "drum" linked to the id of a **Musician**.* |
 |Question | How can we use the `Moment.js` npm module to help us with **date manipulations** and formatting?  |
-| | *We can use it to get the time when a **Musician** was first active and to know when to declare it unactive (by comparing the last activity time with now). We can use the `format()` function * |
+| | *We can use it to get the time when a **Musician** was first active and to know when to declare it unactive (by comparing the last activity time with now). We can use the `format()` function* |
 |Question | When and how do we **get rid of inactive players**?  |
-| | *We get rid of inactive players once they haven't played anything (send any UDP datagrams) for the past 5 seconds. We remove them by removing their ID from the map of * |
+| | *We get rid of inactive players once they haven't played anything (send any UDP datagrams) for the past 5 seconds. We remove them by removing them from the list of active musicians.* |
 |Question | How do I implement a **simple TCP server** in Node.js?  |
-| | *A simple TCP server can be made with the `net` library by creating a server (`net.createServer()`) and then binding the methods we want to the different actions of the server (i.e. `server.on('listening', doThis);`). Then we just need to indicate the port we want to listen with ``server.listen(####)`* |
+| | *A simple TCP server can be made with the `net` library by creating a server (`net.createServer()`) and then binding the methods we want to the different actions of the server (i.e. `server.on('listening', doThis);`). Then we just need to indicate the port we want to listen with `server.listen(####)`* |
 
 
 ## Task 5: package the "auditor" app in a Docker image
